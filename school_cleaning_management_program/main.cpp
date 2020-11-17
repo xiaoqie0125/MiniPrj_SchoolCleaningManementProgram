@@ -13,7 +13,7 @@ int main() {
 	bool state = true;
 	while (state) {
 		myManager.showMenue();
-		printf("please input your option.\n");
+		cout << "please input your option." << endl;
 		int opt = 0;
 		cin >> opt;
 		if (opt > 0 && opt < 11) {
@@ -21,7 +21,7 @@ int main() {
 			if (opt == 1) {
 				//system("cls");
 				myManager.showRoomType();
-				printf("please input your option.\n");
+				cout << "please input your option." << endl;
 				int opt = 0;
 				cin >> opt;
 				if (opt > 0 && opt < 4) {
