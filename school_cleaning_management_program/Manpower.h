@@ -20,6 +20,11 @@ public:
 		this->_SIC = stu;
 	}
 
+	void cleanEnd() {
+		Student* tmpStu = const_cast<Student*>(this->_SIC);
+		tmpStu->changeState();
+	}
+
 	virtual void cleaning() = 0;
 	virtual void printOrder() = 0;
 protected:

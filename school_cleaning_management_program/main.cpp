@@ -118,7 +118,7 @@ int main() {
 				system("cls");
 
 			}
-
+			// Cleaning end
 			if (opt == 4) {
 				//
 				string roomNo;
@@ -133,7 +133,7 @@ int main() {
 				cin.get();
 				system("cls");
 			}
-
+			// Print order
 			if (opt == 5) {
 				//print order
 				string roomNo;
@@ -149,9 +149,20 @@ int main() {
 				system("cls");
 
 			}
-
+			// Print log
 			if (opt == 6) {
-				// print log
+				//
+				string stuId;
+				cout << "please input student id." << endl;
+				cin >> stuId;
+				bool state = myManager.printLog(stuId);
+				if (state == false) {
+					cout << "Can not find this student." << endl;
+				}
+				//
+				getchar();
+				cin.get();
+				system("cls");
 			}
 
 			// Show room list.
@@ -168,16 +179,24 @@ int main() {
 				cin.get();
 				system("cls");
 			}
-			//
+			// Show working room
 			if (opt == 9) {
 				
+				bool state = myManager.showWorkingRoom();
+				if (state == false) {
+					cout << "there are no rooms currently being cleaned now." << endl;
+				}
 				getchar();
 				cin.get();
 				system("cls");
 			}
-			//
+			// Show student at rest.
 			if (opt == 10) {
 				
+				bool state = myManager.showStudentAtRest();
+				if (state == false) {
+					cout << "there are no students currently waiting arrange." << endl;
+				}
 				getchar();
 				cin.get();
 				system("cls");

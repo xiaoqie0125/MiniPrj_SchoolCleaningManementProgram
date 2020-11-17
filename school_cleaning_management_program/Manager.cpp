@@ -80,7 +80,13 @@ bool Manager::arrangeTask() {
 		
 		std::vector<Student*> arrangeStuList;
 		for (int i = 0; i < mpNum; i++) {
-			(*this->_stuItr)->changeState();
+
+			if ((*this->_stuItr)->isArranged() == true) {
+				this->moveNextStu();
+				i--;
+			}
+
+			(*this->_stuItr)->changeState(); // false -> true
 			arrangeStuList.push_back(*this->_stuItr);
 			this->moveNextStu();
 		}
@@ -111,14 +117,42 @@ int Manager::getRestStudentNum() {
 }
 
 void Manager::moveNextStu() {
-	this->_stuItr++;
-	if (this->_stuItr == this->_stuList.end()) {
-		this->_stuItr = this->_stuList.begin();
+
+	while (1) {
+		
+		int rNum = this->getRestStudentNum();
+		if (rNum == 0) {
+			this->_stuItr = this->_stuList.begin();
+			break;
+		}
+
+		this->_stuItr++;
+
+		if (this->_stuItr == this->_stuList.end()) {
+			this->_stuItr = this->_stuList.begin();
+		}
+
+		if ((*this->_stuItr)->isArranged() == false) {
+			break;
+		}
 	}
+
 }
 
 bool Manager::cleaningEnd(const std::string roomNo) {
 	bool state = false;
+	for (std::vector<Room*>::iterator itr = this->_roomList.begin(); itr != this->_roomList.end(); itr++) {
+		if (roomNo == (*itr)->getRoomNo()) {
+			if ((*itr)->isCleaned() == true) {
+				std::cout << "the room " << roomNo << " is already cleand." << std::endl;
+				break;
+			}
+			(*itr)->room_cleaning_end();
+			state = true;
+			break;
+		}
+	}
+
 
 	return state;
 }
@@ -136,8 +170,19 @@ bool Manager::printOrder(const std::string roomNo) {
 
 }
 
-void Manager::printLog(const std::string stuId) {
+bool Manager::printLog(const std::string stuId) {
+	bool state = false;
+	for (std::vector<Student*>::iterator itr = this->_stuList.begin();
+		itr != this->_stuList.end();
+		itr++) {
 
+		if (stuId == (*itr)->getStudentID()) {
+			(*itr)->printLog();
+			state = true;
+		}
+	}
+
+	return state;
 }
 
 void Manager::showRoomList() {
@@ -154,4 +199,42 @@ void Manager::showStudentList() {
 	for (std::vector<Student*>::iterator itr = this->_stuList.begin(); itr != this->_stuList.end(); itr++) {
 		(*itr)->printStuInfo();
 	}
+}
+
+bool Manager::showWorkingRoom() {
+
+	bool state = false;
+
+	std::cout << "show working room." << std::endl;
+
+	for (std::vector<Room*>::iterator itr = this->_roomList.begin(); 
+		itr != this->_roomList.end(); 
+		itr++) {
+
+		if ((*itr)->isArranged() == true && (*itr)->isCleaned() == false) {
+			(*itr)->printRoomInfo();
+			state = true;
+		}
+	}
+
+	return state;
+}
+
+
+bool Manager::showStudentAtRest() {
+	bool state = false;
+
+	std::cout << "show working room." << std::endl;
+
+	for (std::vector<Student*>::iterator itr = this->_stuList.begin();
+		itr != this->_stuList.end();
+		itr++) {
+
+		if ((*itr)->isArranged() == false ) {
+			(*itr)->printStuInfo();
+			state = true;
+		}
+	}
+
+	return state;
 }

@@ -1,16 +1,14 @@
-﻿  main.cpp
-D:\snail_school\c plus\c_plus_prj\school_cleaning_management_program\school_cleaning_management_program\main.cpp(88,70): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-  Manager.cpp
+﻿  Manager.cpp
   Room.cpp
-D:\snail_school\c plus\c_plus_prj\school_cleaning_management_program\school_cleaning_management_program\Room.cpp(211,61): warning C4244: 'argument': conversion from 'const float' to 'T', possible loss of data
+D:\snail_school\c plus\c_plus_prj\MiniPrj_SchoolCleaningManementProgram\school_cleaning_management_program\Room.cpp(241,61): warning C4244: 'argument': conversion from 'const float' to 'T', possible loss of data
           with
           [
               T=int
           ]
-D:\snail_school\c plus\c_plus_prj\school_cleaning_management_program\school_cleaning_management_program\Room.cpp(211,40): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+D:\snail_school\c plus\c_plus_prj\MiniPrj_SchoolCleaningManementProgram\school_cleaning_management_program\Room.cpp(241,40): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
           with
           [
               T=int
           ]
   Generating Code...
-  school_cleaning_management_program.vcxproj -> D:\snail_school\c plus\c_plus_prj\school_cleaning_management_program\Debug\school_cleaning_management_program.exe
+  school_cleaning_management_program.vcxproj -> D:\snail_school\c plus\c_plus_prj\MiniPrj_SchoolCleaningManementProgram\Debug\school_cleaning_management_program.exe

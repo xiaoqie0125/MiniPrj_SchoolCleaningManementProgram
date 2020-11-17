@@ -28,7 +28,8 @@ const float Room::base_size_floor = 25.0f;
 const float Room::base_size_window = 25.0f;
 
 Room::Room(const std::string rNo, const float area, const float ws)
-	:_roomNo(rNo), _area(area), _window_size(ws) {
+	:_roomNo(rNo), _area(area), _window_size(ws),
+	_cleaned(false), _arranged(false) {
 	
 	this->_mpFloorNum = counting<float>(this->_area, this->base_size_floor);
 	this->_mpWindowNum = counting<float>(this->_window_size, this->base_size_window);
@@ -43,6 +44,22 @@ void Room::printRoomInfo() {
 	
 	std::cout << "Room No: " << this->_roomNo << endl;
 	std::cout << "Room type: " << this->getRoomTypeName() << endl;
+}
+
+void Room::room_cleaning_end() {
+
+
+	std::cout << "roomNo: " << this->_roomNo << " -> end!" << std::endl;
+
+	this->_cleaned = true;
+
+	for (std::vector<PIC*>::iterator itr = (*this->_manPowerList).begin();
+		itr != (*this->_manPowerList).end();
+		itr++) {
+
+		(*itr)->cleanEnd();
+
+	}
 }
 
 const float ClassRoom::base_size_bborad = 10.0f;
@@ -68,6 +85,8 @@ int ClassRoom::getTotalManpower() {
 
 void ClassRoom::setManpower(std::vector<Student*>& stuList) {
 
+	
+
 	int mpCnt = this->getTotalManpower();
 	this->_manPowerList = new std::vector<PIC*>(mpCnt);
 
@@ -76,21 +95,25 @@ void ClassRoom::setManpower(std::vector<Student*>& stuList) {
 
 	for (int i = 0; i < this->_mpFloorNum; i++, itr_mp++, itr_stu++) {
 		
+		(*itr_stu)->record(this->_roomNo, "Floor");
 		*itr_mp = new PIC_Floor(*itr_stu);
 	}
 
 	for (int i = 0; i < this->_mpWindowNum; i++, itr_mp++, itr_stu++) {
-		
+
+		(*itr_stu)->record(this->_roomNo, "Window");
 		*itr_mp = new PIC_Window(*itr_stu);
 	}
 
 	for (int i = 0; i < this->_mpBboradNum; i++, itr_mp++, itr_stu++) {
 		
+		(*itr_stu)->record(this->_roomNo, "Blackboard");
 		*itr_mp = new PIC_Balckboard(*itr_stu);
 	}
 
 	for (int i = 0; i < this->_mpSeatNum; i++, itr_mp++, itr_stu++) {
 		
+		(*itr_stu)->record(this->_roomNo, "Seat");
 		*itr_mp = new PIC_Seat(*itr_stu);
 	}
 
@@ -108,6 +131,8 @@ void ClassRoom::room_cleaning(){
 		(*itr_mp)->cleaning();
 		//(*itr_mp)->printOrder();
 	}
+
+	this->_arranged = true;
 }
 
 void ClassRoom::printOrder() {
@@ -155,16 +180,19 @@ void OfficeRoom::setManpower(std::vector<Student*>& stuList) {
 
 	for (int i = 0; i < this->_mpFloorNum; i++, itr_mp++, itr_stu++) {
 		
+		(*itr_stu)->record(this->_roomNo, "Floor");
 		*itr_mp = new PIC_Floor(*itr_stu);
 	}
 
 	for (int i = 0; i < this->_mpWindowNum; i++, itr_mp++, itr_stu++) {
 		
+		(*itr_stu)->record(this->_roomNo, "Window");
 		*itr_mp = new PIC_Window(*itr_stu);
 	}
 
 	for (int i = 0; i < this->_mpSeatNum; i++, itr_mp++, itr_stu++) {
 		
+		(*itr_stu)->record(this->_roomNo, "Office seat");
 		*itr_mp = new PIC_Officeseat(*itr_stu);
 	}
 
@@ -183,6 +211,8 @@ void OfficeRoom::room_cleaning() {
 		
 		(*itr_mp)->cleaning();
 	}
+
+	this->_arranged = true;
 
 }
 
@@ -230,16 +260,19 @@ void MeetingRoom::setManpower(std::vector<Student*>& stuList) {
 
 	for (int i = 0; i < this->_mpFloorNum; i++, itr_mp++, itr_stu++) {
 		
+		(*itr_stu)->record(this->_roomNo, "Floor");
 		*itr_mp = new PIC_Floor(*itr_stu);
 	}
 
 	for (int i = 0; i < this->_mpWindowNum; i++, itr_mp++, itr_stu++) {
 		
+		(*itr_stu)->record(this->_roomNo, "Window");
 		*itr_mp = new PIC_Window(*itr_stu);
 	}
 
 	for (int i = 0; i < this->_mpTableNum; i++, itr_mp++, itr_stu++) {
 		
+		(*itr_stu)->record(this->_roomNo, "Meeting table");
 		*itr_mp = new PIC_Meetingtable(*itr_stu);
 	}
 
@@ -260,6 +293,7 @@ void MeetingRoom::room_cleaning() {
 		(*itr_mp)->cleaning();
 	}
 
+	this->_arranged = true;
 }
 
 void MeetingRoom::printOrder() {

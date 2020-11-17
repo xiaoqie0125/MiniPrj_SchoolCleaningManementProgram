@@ -17,7 +17,8 @@ class Room {
 public:
 
 	Room()
-		:_roomNo("xxx"), _area(0.0f), _window_size(0.0f) {
+		:_roomNo("xxx"), _area(0.0f), _window_size(0.0f), 
+		_cleaned(false), _arranged(false){
 	}
 
 	Room(const std::string rNo, const float area, const float ws);
@@ -40,6 +41,18 @@ public:
 		return this->_roomNo;
 	}
 
+	bool isCleaned() {
+		return this->_cleaned;
+	}
+
+	bool isArranged() {
+		return this->_arranged;
+	}
+
+	void room_cleaning_end();
+
+
+
 	virtual ~Room() {
 		delete this->_manPowerList;
 	}
@@ -57,6 +70,10 @@ protected:
 
 	std::string _roomNo;
 	ROOM_TYPE _type;
+
+	bool _cleaned;
+	bool _arranged;
+
 	std::vector<PIC*>* _manPowerList;
 	float _area;
 	float _window_size;

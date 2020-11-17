@@ -6,12 +6,20 @@
 
 class Action {
 public:
-	Action();
-	Action(std::string roomNo, std::string charge);
+	Action():_roomNo("000"), _charge("none") {
+
+	}
+	Action(std::string roomNo, std::string charge): _roomNo(roomNo), _charge(charge) {
+
+	}
+
+	void print() {
+		std::cout << "roomNo: " << this->_roomNo << " charge: " << this->_charge << std::endl;
+	}
 
 private:
-	std::string _roomNo;
-	std::string _charge;
+	const std::string _roomNo;
+	const std::string _charge;
 };
 
 
@@ -24,6 +32,22 @@ public:
 
 	Student(const std::string stu_id, const std::string name) : _stu_id(stu_id), _name(name), _state(true) {
 
+	}
+
+	std::string getStudentID() {
+		return _stu_id;
+	}
+
+	void printLog() {
+
+		std::cout << "name: " << this->_name << std::endl;
+
+		for (std::vector<Action>::iterator itr = this->ActionList.begin();
+			itr != this->ActionList.end();
+			itr++) {
+
+			(*itr).print();
+		}
 	}
 
 	void changeState() {

@@ -15,11 +15,11 @@ public:
 	bool arrangeTask();
 	bool cleaningEnd(const std::string roomNo);
 	bool printOrder(const std::string roomNo);
-	void printLog(const std::string stuId);
+	bool printLog(const std::string stuId);
 	void showRoomList();
 	void showStudentList();
-	void showWorkingRoom();
-	void showStudentAtRest();
+	bool showWorkingRoom();
+	bool showStudentAtRest();
 
 	void showMenue();
 	void showRoomType();
